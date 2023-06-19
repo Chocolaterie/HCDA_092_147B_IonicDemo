@@ -25,6 +25,11 @@ export class HomePage {
   public personToto = new Person("Toto");
   public displayButton = true;
 
+  // Liste de données
+  public persons = [new Person("Isaac"),  new Person("Toto"), 
+    new Person("Johan"), new Person("Pizza Ananas"),
+    new Person("Pinte Nutella avec du Coca")];
+
   constructor() {
 
   }

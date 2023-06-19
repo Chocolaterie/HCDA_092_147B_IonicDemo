@@ -14,6 +14,24 @@
   </ion-header>
 
   <div id="container">
+    <!-- Liste -->
+    <ul>
+      <!-- <li *ngFor="let person of persons">{{ person.firstname }}</li> -->
+    </ul>
+
+    <!-- Pour chaque person j'ajoute une ionic card -->
+    <ion-card *ngFor="let person of persons">
+      <img alt="Silhouette of mountains" src="https://www.boredpanda.com/blog/wp-content/uploads/2020/07/shiba-cheems-meme-dog-balltze-4-1.jpg" />
+      <ion-card-header>
+        <ion-card-title>{{ person.firstname }}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Coucou... je ne finirais pas cette phrase.
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Demo reference -->
     <input type="text" [(ngModel)]="personIsaac.firstname" />
     <hr>
     <p><strong>{{ personIsaac.firstname }}</strong></p>
