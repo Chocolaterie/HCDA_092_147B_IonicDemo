@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      EniDemo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <input type="text" [(ngModel)]="personIsaac.firstname" />
+    <hr>
+    <p><strong>{{ personIsaac.firstname }}</strong></p>
+    <p><strong>{{ personToto.firstname }}</strong></p>
+    <hr>
+    <p><button (click)="testMemoire()" *ngIf="displayButton">Assigner Isaac à Toto</button></p>
+  </div>
+</ion-content>
