@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule, LoadingController } from '@ionic/angular';
 import { Movie } from '../movie';
 
 @Component({
@@ -25,9 +25,47 @@ export class DemoFilmPage implements OnInit {
   // les films à afficher
   public movies = Array<Movie>();
 
-  constructor() { }
+  constructor(private alertCtrl : AlertController, private loadingCtrl : LoadingController) { }
 
   ngOnInit() {
+
+  }
+
+  /**
+   * Ouvrir une Alert Box
+   */
+  public async showAlert(){
+    // Creer une dialog box en mémoire
+    const alert = await this.alertCtrl.create({
+      header: "La soutenance",
+      message: "Je vais pipoter ma soutenance ça passe crême",
+      buttons: ["Non tu est folle", "A l'aise, petit billet"]
+    });
+
+    // afficher
+    alert.present();
+  }
+
+  public async login(){
+    // Afficher le loading 
+    const loading = await this.loadingCtrl.create({
+      message: "Connexion en cours"
+    });
+
+    // ATTENTIOn : present pour afficher
+    loading.present();
+
+    // Appeler web service qui dure x Temps (callback appelé aprés les x secondes en parametre)
+    setTimeout(() => {
+        // Quand le web service terminé => fermer le loading
+        loading.dismiss();
+    }, 2000);
+ 
+  }
+
+  public onSelect(e : any){
+    // alert("test");
+    console.log("qsdlsqmldsqdsqd");
   }
 
   public searchMovie(){
