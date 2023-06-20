@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>demo-film</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">demo-film</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div style="width: 100%">
+    <ion-list lines="none">
+      <!-- Saisie des mots-clés  -->
+      <ion-item>
+        <ion-input label="Mot-clés du film" label-placement="stacked" type="text" [(ngModel)]="keyword"></ion-input>
+      </ion-item>
+
+      <!-- Submit -->
+      <ion-item>
+        <ion-button expand="full" class="eni-full-width" (click)="searchMovie()"><ion-icon name="search-outline"></ion-icon> Rechercher</ion-button>
+      </ion-item>
+
+      <!-- Listes des films -->
+      <ion-card *ngFor="let movie of movies">
+        <ion-card-header>
+          <ion-card-title>{{ movie.title }}</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>{{ movie.description }}</ion-card-content>
+      </ion-card>
+
+    </ion-list>
+  </div>
+</ion-content>
