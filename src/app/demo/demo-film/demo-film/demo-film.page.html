@@ -17,11 +17,7 @@
       <ion-item>
         <ion-input label="Mot-clés du film" label-placement="stacked" type="text" [(ngModel)]="keyword"></ion-input>
       </ion-item>
-
-      <ion-select (ionChange)="onSelect($event)">
-        <ion-select-option value="test">Test</ion-select-option>
-        <ion-select-option value="test2">Test</ion-select-option>
-      </ion-select>
+      
       <!-- Submit -->
       <ion-item>
         <ion-button expand="full" class="eni-full-width" (click)="searchMovie()"><ion-icon name="search-outline"></ion-icon> Rechercher</ion-button>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertController, IonicModule, LoadingController } from '@ionic/angular';
 import { Movie } from '../movie';
+import { FilmService } from '../film.service';
 
 @Component({
   selector: 'app-demo-film',
@@ -15,17 +16,11 @@ export class DemoFilmPage implements OnInit {
 
   public keyword = "";
 
-  // Les films en base
-  public dbMovies = [
-    new Movie("The Thing", "Pour les enfants"),
-    new Movie("Les teletubbies", "Un film d'horreur avec un soleil qui parle"),
-    new Movie("Les stagiaires de l'ENI", "Un film d'horreur, des stagiaires deviennent foux et met le feu aux etablissement à cause de Android Studio"),
-  ];
 
   // les films à afficher
   public movies = Array<Movie>();
 
-  constructor(private alertCtrl : AlertController, private loadingCtrl : LoadingController) { }
+  constructor(private filmService: FilmService, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
 
@@ -34,7 +29,7 @@ export class DemoFilmPage implements OnInit {
   /**
    * Ouvrir une Alert Box
    */
-  public async showAlert(){
+  public async showAlert() {
     // Creer une dialog box en mémoire
     const alert = await this.alertCtrl.create({
       header: "La soutenance",
@@ -46,7 +41,7 @@ export class DemoFilmPage implements OnInit {
     alert.present();
   }
 
-  public async login(){
+  public async login() {
     // Afficher le loading 
     const loading = await this.loadingCtrl.create({
       message: "Connexion en cours"
@@ -57,30 +52,36 @@ export class DemoFilmPage implements OnInit {
 
     // Appeler web service qui dure x Temps (callback appelé aprés les x secondes en parametre)
     setTimeout(() => {
-        // Quand le web service terminé => fermer le loading
-        loading.dismiss();
+      // Quand le web service terminé => fermer le loading
+      loading.dismiss();
     }, 2000);
- 
+
   }
 
-  public onSelect(e : any){
-    // alert("test");
-    console.log("qsdlsqmldsqdsqd");
+  /**
+   * Rechercher films
+   */
+  public async searchMovie() {
+
+    // Afficher le loading 
+    const loading = await this.loadingCtrl.create({
+      message: "Rechercher de films"
+    });
+
+    // ATTENTIOn : present pour afficher
+    loading.present();
+
+    // Je lance une promesse (tache asynchrone)
+    this.filmService.search(this.keyword)
+      .then(results => {
+        this.movies = results;
+      }).finally(() => {
+
+        // Dans tout les cas (erreur ou non) je ferme le loading
+        loading.dismiss();
+      });
   }
 
-  public searchMovie(){
-    let results = [];
 
-    // On parcours la liste des films
-    for (let movie of this.dbMovies ){
-      // Si le titre du film coresspond avec le input alors c'est bon
-      if (movie.title! == this.keyword){
-        results.push(movie);
-      }
-    }
-
-    // Mettre à jour les films à afficher
-    this.movies = results;
-  }
 
 }
