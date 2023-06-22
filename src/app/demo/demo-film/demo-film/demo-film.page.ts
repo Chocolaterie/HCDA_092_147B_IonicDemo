@@ -71,15 +71,17 @@ export class DemoFilmPage implements OnInit {
     // ATTENTIOn : present pour afficher
     loading.present();
 
-    // Je lance une promesse (tache asynchrone)
-    this.filmService.search(this.keyword)
-      .then(results => {
-        this.movies = results;
-      }).finally(() => {
-
-        // Dans tout les cas (erreur ou non) je ferme le loading
+    // Je lance une requette observable (tache asynchrone)
+    this.filmService.search(this.keyword).subscribe({
+      next : (value) => {
+        // Quand je recois la donnée je la stocke en tant que liste de film
+        this.movies = value;
+      },
+      complete : () => {
+        // Dans tout les cas je ferme le loading progress
         loading.dismiss();
-      });
+      }
+    })
   }
 
 
